@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Crowd Map | Divya Darshan Smart Management System</title>
+    <link href="app/globals.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+        .map-zone {
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .map-zone:hover {
+            transform: scale(1.05);
+            z-index: 10;
+        }
+        .zone-low { background: rgba(34, 197, 94, 0.7); }
+        .zone-medium { background: rgba(251, 191, 36, 0.7); }
+        .zone-high { background: rgba(239, 68, 68, 0.7); }
+        .zone-closed { background: rgba(107, 114, 128, 0.7); }
+        .sos-button {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            z-index: 1000;
+            animation: pulse 2s infinite;
+        }
+        .heatmap-legend {
+            background: linear-gradient(90deg, #22c55e, #eab308, #ef4444);
+        }
+        .facility-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+            color: white;
+        }
+    </style>
+</head>
+<body class="bg-background text-foreground">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg border-b border-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-4">
+                    <a href="index.html" class="flex items-center space-x-3">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Gujarat Govt" class="h-10 w-10">
+                        <div>
+                            <h1 class="text-lg font-bold text-primary">Divya Darshan</h1>
+                            <p class="text-xs text-muted-foreground">Live Crowd Map</p>
+                        </div>
+                    </a>
+                </div>
+                
+                <div class="flex items-center space-x-4">
+                    <div class="flex items-center space-x-2 bg-green-100 px-3 py-1 rounded-full">
+                        <div class="w-2 h-2 bg-green-500 rounded-full pulse-animation"></div>
+                        <span class="text-sm font-medium text-green-700">Live Updates</span>
+                    </div>
+                    <a href="index.html" class="text-foreground hover:text-primary font-medium transition-colors">← Back to Home</a>
+                    <select class="bg-input border border-border rounded-md px-3 py-1 text-sm">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="gu">ગુજરાતી</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Temple Selection -->
+    <section class="bg-muted/30 py-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div>
+                    <h2 class="text-2xl font-bold">Live Crowd Monitoring</h2>
+                    <p class="text-muted-foreground">Real-time crowd density and facility status</p>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <select class="bg-white border border-border rounded-lg px-4 py-2 font-medium">
+                        <option>Somnath Temple</option>
+                        <option>Dwarka Temple</option>
+                        <option>Ambaji Temple</option>
+                        <option>Pavagadh Temple</option>
+                    </select>
+                    <button class="bg-primary text-primary-foreground px-4 py-2 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                        Refresh Data
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-4 gap-8">
+                <!-- Interactive Map -->
+                <div class="lg:col-span-3">
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <div class="flex items-center justify-between mb-6">
+                            <h3 class="text-xl font-bold">Somnath Temple Complex</h3>
+                            <div class="flex items-center space-x-4">
+                                <div class="text-sm text-muted-foreground">Last Updated: 2 mins ago</div>
+                                <div class="heatmap-legend w-32 h-4 rounded-full"></div>
+                                <div class="text-sm">Low → High</div>
+                            </div>
+                        </div>
+
+                        <!-- Temple Map -->
+                        <div class="relative bg-gray-100 rounded-lg p-8 min-h-[600px]">
+                            <!-- Main Temple Structure -->
+                            <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-32 h-32 bg-orange-200 rounded-lg border-4 border-orange-400 flex items-center justify-center">
+                                <div class="text-center">
+                                    <div class="text-2xl">🕉️</div>
+                                    <div class="text-sm font-bold">Main Temple</div>
+                                </div>
+                            </div>
+
+                            <!-- Entry Zone -->
+                            <div class="map-zone zone-medium absolute top-8 left-1/2 transform -translate-x-1/2 w-24 h-16 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="entry">
+                                Entry Gate
+                                <div class="absolute -top-2 -right-2 bg-yellow-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">45</div>
+                            </div>
+
+                            <!-- Queue Areas -->
+                            <div class="map-zone zone-high absolute top-32 left-1/4 w-20 h-24 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="queue1">
+                                Queue 1
+                                <div class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">85</div>
+                            </div>
+
+                            <div class="map-zone zone-medium absolute top-32 right-1/4 w-20 h-24 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="queue2">
+                                Queue 2
+                                <div class="absolute -top-2 -right-2 bg-yellow-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">60</div>
+                            </div>
+
+                            <!-- Sanctum Area -->
+                            <div class="map-zone zone-high absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-40 h-40 rounded-lg border-4 border-red-400 bg-red-200/50 flex items-center justify-center" data-zone="sanctum">
+                                <div class="absolute -top-2 -right-2 bg-red-500 text-white rounded-full w-8 h-8 flex items-center justify-center text-sm font-bold">95</div>
+                            </div>
+
+                            <!-- Parking Areas -->
+                            <div class="map-zone zone-low absolute bottom-8 left-8 w-24 h-16 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="parking1">
+                                Parking A
+                                <div class="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">25</div>
+                            </div>
+
+                            <div class="map-zone zone-medium absolute bottom-8 right-8 w-24 h-16 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="parking2">
+                                Parking B
+                                <div class="absolute -top-2 -right-2 bg-yellow-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">70</div>
+                            </div>
+
+                            <!-- Facilities -->
+                            <div class="map-zone zone-low absolute top-1/4 left-8 w-20 h-12 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="cloakroom">
+                                Cloakroom
+                                <div class="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">15</div>
+                            </div>
+
+                            <div class="map-zone zone-medium absolute top-1/4 right-8 w-20 h-12 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="prasad">
+                                Prasad Counter
+                                <div class="absolute -top-2 -right-2 bg-yellow-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">55</div>
+                            </div>
+
+                            <!-- Exit Areas -->
+                            <div class="map-zone zone-low absolute bottom-32 left-1/2 transform -translate-x-1/2 w-24 h-16 rounded-lg flex items-center justify-center text-white font-bold text-sm" data-zone="exit">
+                                Exit Gate
+                                <div class="absolute -top-2 -right-2 bg-green-500 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">30</div>
+                            </div>
+
+                            <!-- Facility Icons -->
+                            <div class="absolute top-16 right-16 space-y-2">
+                                <div class="facility-icon bg-blue-500" title="Restrooms">🚻</div>
+                                <div class="facility-icon bg-green-500" title="Water Station">💧</div>
+                                <div class="facility-icon bg-red-500" title="Medical Aid">⚕️</div>
+                                <div class="facility-icon bg-purple-500" title="Security">👮</div>
+                            </div>
+
+                            <!-- You Are Here Marker -->
+                            <div class="absolute top-20 left-20 flex items-center space-x-2 bg-blue-600 text-white px-3 py-1 rounded-full text-sm">
+                                <div class="w-2 h-2 bg-white rounded-full pulse-animation"></div>
+                                <span>You Are Here</span>
+                            </div>
+                        </div>
+
+                        <!-- Map Legend -->
+                        <div class="mt-6 grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-green-500 rounded"></div>
+                                <span class="text-sm">Low Crowd (0-30%)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-yellow-500 rounded"></div>
+                                <span class="text-sm">Medium Crowd (31-70%)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-red-500 rounded"></div>
+                                <span class="text-sm">High Crowd (71-100%)</span>
+                            </div>
+                            <div class="flex items-center space-x-2">
+                                <div class="w-4 h-4 bg-gray-500 rounded"></div>
+                                <span class="text-sm">Closed/Restricted</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Side Panel -->
+                <div class="space-y-6">
+                    <!-- Zone Details -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4">Zone Information</h3>
+                        <div id="zone-info" class="space-y-4">
+                            <div class="text-center text-muted-foreground">
+                                Click on a zone to view details
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Wait Times -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4">Current Wait Times</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Entry Gate</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm font-medium">8-12 mins</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Main Darshan</span>
+                                <span class="bg-red-100 text-red-800 px-2 py-1 rounded text-sm font-medium">25-35 mins</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Prasad Counter</span>
+                                <span class="bg-yellow-100 text-yellow-800 px-2 py-1 rounded text-sm font-medium">5-8 mins</span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <span class="text-sm">Cloakroom</span>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm font-medium">2-3 mins</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Facilities Status -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4">Facility Status</h3>
+                        <div class="space-y-3">
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm">🚻</span>
+                                    <span class="text-sm">Restrooms</span>
+                                </div>
+                                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm">💧</span>
+                                    <span class="text-sm">Water Stations</span>
+                                </div>
+                                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm">⚕️</span>
+                                    <span class="text-sm">Medical Aid</span>
+                                </div>
+                                <span class="w-3 h-3 bg-green-500 rounded-full"></span>
+                            </div>
+                            <div class="flex justify-between items-center">
+                                <div class="flex items-center space-x-2">
+                                    <span class="text-sm">🚗</span>
+                                    <span class="text-sm">Parking</span>
+                                </div>
+                                <span class="w-3 h-3 bg-yellow-500 rounded-full"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Actions -->
+                    <div class="bg-white rounded-xl shadow-lg p-6">
+                        <h3 class="text-lg font-bold mb-4">Quick Actions</h3>
+                        <div class="space-y-3">
+                            <button class="w-full bg-primary text-primary-foreground py-2 px-4 rounded-lg font-medium hover:bg-primary/90 transition-colors">
+                                Book Virtual Queue
+                            </button>
+                            <button class="w-full bg-secondary text-secondary-foreground py-2 px-4 rounded-lg font-medium hover:bg-secondary/90 transition-colors">
+                                Find Parking
+                            </button>
+                            <button class="w-full bg-green-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors">
+                                Get Directions
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Alerts -->
+                    <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-4">
+                        <h4 class="font-bold text-yellow-800 mb-2">Live Alerts</h4>
+                        <div class="space-y-2 text-sm text-yellow-700">
+                            <div class="flex items-start space-x-2">
+                                <span class="text-yellow-500">⚠️</span>
+                                <span>High crowd at main sanctum. Consider visiting after 4 PM.</span>
+                            </div>
+                            <div class="flex items-start space-x-2">
+                                <span class="text-blue-500">ℹ️</span>
+                                <span>Parking B is 70% full. Use Parking A for faster access.</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SOS Emergency Button -->
+    <button class="sos-button bg-red-600 text-white w-16 h-16 rounded-full shadow-lg hover:bg-red-700 transition-colors flex items-center justify-center">
+        <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+        </svg>
+    </button>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-8 mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <p class="text-gray-400">© 2024 Government of Gujarat. All rights reserved.</p>
+            <p class="text-sm text-gray-500 mt-2">Emergency Helpline: 1800-123-4567</p>
+        </div>
+    </footer>
+
+    <script>
+        // Zone interaction functionality
+        const zones = document.querySelectorAll('.map-zone');
+        const zoneInfo = document.getElementById('zone-info');
+
+        const zoneData = {
+            entry: {
+                name: 'Entry Gate',
+                crowd: '45%',
+                status: 'Moderate',
+                waitTime: '8-12 mins',
+                capacity: '120 people',
+                facilities: ['Security Check', 'Ticket Verification']
+            },
+            queue1: {
+                name: 'Queue Area 1',
+                crowd: '85%',
+                status: 'High',
+                waitTime: '25-30 mins',
+                capacity: '200 people',
+                facilities: ['Seating Area', 'Water Station']
+            },
+            queue2: {
+                name: 'Queue Area 2',
+                crowd: '60%',
+                status: 'Moderate',
+                waitTime: '15-20 mins',
+                capacity: '180 people',
+                facilities: ['Shade Cover', 'Information Desk']
+            },
+            sanctum: {
+                name: 'Main Sanctum',
+                crowd: '95%',
+                status: 'Very High',
+                waitTime: '35-45 mins',
+                capacity: '50 people',
+                facilities: ['Darshan Area', 'Priest Services']
+            },
+            parking1: {
+                name: 'Parking Area A',
+                crowd: '25%',
+                status: 'Low',
+                waitTime: '2-3 mins',
+                capacity: '500 vehicles',
+                facilities: ['CCTV', 'Security Guard']
+            },
+            parking2: {
+                name: 'Parking Area B',
+                crowd: '70%',
+                status: 'Moderate',
+                waitTime: '5-8 mins',
+                capacity: '300 vehicles',
+                facilities: ['CCTV', 'Lighting']
+            },
+            cloakroom: {
+                name: 'Cloakroom',
+                crowd: '15%',
+                status: 'Low',
+                waitTime: '2-3 mins',
+                capacity: '100 items',
+                facilities: ['Secure Storage', 'Token System']
+            },
+            prasad: {
+                name: 'Prasad Counter',
+                crowd: '55%',
+                status: 'Moderate',
+                waitTime: '5-8 mins',
+                capacity: '80 people',
+                facilities: ['Digital Payment', 'Multiple Counters']
+            },
+            exit: {
+                name: 'Exit Gate',
+                crowd: '30%',
+                status: 'Low',
+                waitTime: '3-5 mins',
+                capacity: '150 people',
+                facilities: ['Feedback Kiosk', 'Lost & Found']
+            }
+        };
+
+        zones.forEach(zone => {
+            zone.addEventListener('click', function() {
+                const zoneId = this.getAttribute('data-zone');
+                const data = zoneData[zoneId];
+                
+                if (data) {
+                    zoneInfo.innerHTML = `
+                        <div class="space-y-3">
+                            <h4 class="font-bold text-lg">${data.name}</h4>
+                            <div class="grid grid-cols-2 gap-2 text-sm">
+                                <div>
+                                    <span class="text-muted-foreground">Crowd Level:</span>
+                                    <div class="font-semibold ${data.status === 'Low' ? 'text-green-600' : data.status === 'Moderate' ? 'text-yellow-600' : 'text-red-600'}">${data.crowd} (${data.status})</div>
+                                </div>
+                                <div>
+                                    <span class="text-muted-foreground">Wait Time:</span>
+                                    <div class="font-semibold">${data.waitTime}</div>
+                                </div>
+                                <div>
+                                    <span class="text-muted-foreground">Capacity:</span>
+                                    <div class="font-semibold">${data.capacity}</div>
+                                </div>
+                            </div>
+                            <div>
+                                <span class="text-muted-foreground text-sm">Available Facilities:</span>
+                                <div class="flex flex-wrap gap-1 mt-1">
+                                    ${data.facilities.map(facility => `<span class="bg-muted px-2 py-1 rounded text-xs">${facility}</span>`).join('')}
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                }
+            });
+        });
+
+        // SOS Button functionality
+        document.querySelector('.sos-button').addEventListener('click', function() {
+            if (confirm('Are you in an emergency situation? This will alert security and medical staff to your location.')) {
+                alert('Emergency alert sent! Help is on the way. Stay calm and stay where you are.');
+                // In a real implementation, this would send location data to emergency services
+            }
+        });
+
+        // Auto-refresh data every 30 seconds
+        setInterval(() => {
+            console.log('Refreshing crowd data...');
+            // In a real implementation, this would fetch fresh data from the server
+        }, 30000);
+    </script>
+</body>
+</html>

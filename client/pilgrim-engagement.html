@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pilgrim Engagement - Divya Darshan Smart Management</title>
+    <link rel="stylesheet" href="app/globals.css">
+    <style>
+        .engagement-hero {
+            background: linear-gradient(135deg, #ec4899 0%, #f472b6 50%, #fbbf24 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .engagement-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="temple" patternUnits="userSpaceOnUse" width="20" height="20"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/></pattern></defs><rect width="100" height="100" fill="url(%23temple)"/></svg>');
+        }
+        
+        .engagement-card {
+            background: white;
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .engagement-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, #ec4899, #f472b6, #fbbf24);
+        }
+        
+        .engagement-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+        
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin: 0 auto 1.5rem;
+            box-shadow: 0 10px 30px rgba(236, 72, 153, 0.3);
+        }
+        
+        .spiritual-content {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem 0;
+        }
+        
+        .devotional-timer {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 0 15px 35px rgba(59, 130, 246, 0.3);
+        }
+        
+        .prayer-wheel {
+            width: 120px;
+            height: 120px;
+            border: 4px solid #ec4899;
+            border-radius: 50%;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            animation: spin 10s linear infinite;
+            background: linear-gradient(135deg, #fdf2f8, #fce7f3);
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .donation-tracker {
+            background: linear-gradient(135deg, #10b981, #059669);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            background: rgba(255, 255, 255, 0.2);
+            height: 12px;
+            border-radius: 6px;
+            overflow: hidden;
+            margin: 1rem 0;
+        }
+        
+        .progress-fill {
+            background: white;
+            height: 100%;
+            border-radius: 6px;
+            transition: width 2s ease;
+        }
+        
+        .interactive-btn {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin: 0 auto;
+        }
+        
+        .interactive-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(236, 72, 153, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-icon">🕉️</span>
+                <span class="nav-title">Divya Darshan</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="virtual-queue.html" class="nav-link">Queue</a>
+                <a href="live-crowd-map.html" class="nav-link">Live Map</a>
+                <a href="pilgrim-engagement.html" class="nav-link active">Engagement</a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="engagement-hero">
+        <div class="container" style="position: relative; z-index: 1;">
+            <h1 class="text-5xl font-bold mb-4">Spiritual Engagement Hub</h1>
+            <p class="text-xl opacity-90">Connect with your faith through digital devotion</p>
+            <div class="prayer-wheel mt-8">
+                🕉️
+            </div>
+        </div>
+    </div>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+                <div class="engagement-card">
+                    <div class="feature-icon">📿</div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Digital Mala</h3>
+                    <p class="text-gray-600 text-center mb-6">Count your prayers digitally with our interactive mala counter</p>
+                    <div class="text-center">
+                        <div class="text-4xl font-bold text-pink-500 mb-2" id="mala-count">0</div>
+                        <button class="interactive-btn" onclick="incrementMala()">
+                            <span>🙏</span>
+                            <span>Count Prayer</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="engagement-card">
+                    <div class="feature-icon">🎵</div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Devotional Music</h3>
+                    <p class="text-gray-600 text-center mb-6">Listen to sacred bhajans and mantras</p>
+                    <div class="text-center">
+                        <button class="interactive-btn" onclick="playDevotionalMusic()">
+                            <span>▶️</span>
+                            <span>Play Bhajans</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="engagement-card">
+                    <div class="feature-icon">📖</div>
+                    <h3 class="text-2xl font-bold text-center mb-4">Daily Shloka</h3>
+                    <div class="spiritual-content">
+                        <p class="text-lg font-semibold text-pink-600 mb-2">Today's Wisdom</p>
+                        <p class="text-gray-700 italic">"सर्वे भवन्तु सुखिनः सर्वे सन्तु निरामयाः"</p>
+                        <p class="text-sm text-gray-600 mt-2">May all beings be happy and free from illness</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-12">
+                <div class="engagement-card">
+                    <h3 class="text-2xl font-bold mb-6">Devotional Timer</h3>
+                    <div class="devotional-timer">
+                        <h4 class="text-xl mb-4">Next Aarti Time</h4>
+                        <div class="text-4xl font-bold mb-2" id="aarti-timer">05:23:45</div>
+                        <p>Evening Aarti at Somnath Temple</p>
+                        <button class="interactive-btn mt-4" onclick="setReminder()">
+                            <span>🔔</span>
+                            <span>Set Reminder</span>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="engagement-card">
+                    <h3 class="text-2xl font-bold mb-6">Community Donations</h3>
+                    <div class="donation-tracker">
+                        <h4 class="text-xl mb-4">Temple Development Fund</h4>
+                        <div class="text-3xl font-bold mb-2">₹12,45,678</div>
+                        <p class="mb-4">Raised of ₹20,00,000 goal</p>
+                        <div class="progress-bar">
+                            <div class="progress-fill" style="width: 62%"></div>
+                        </div>
+                        <button class="interactive-btn mt-4" onclick="donate()">
+                            <span>💝</span>
+                            <span>Contribute</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="engagement-card mb-12">
+                <h3 class="text-3xl font-bold text-center mb-8">Virtual Darshan Experience</h3>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="text-center">
+                        <div class="feature-icon">🏛️</div>
+                        <h4 class="text-xl font-bold mb-2">360° Temple View</h4>
+                        <p class="text-gray-600 mb-4">Immersive virtual temple experience</p>
+                        <button class="interactive-btn" onclick="startVirtualTour()">
+                            <span>🔄</span>
+                            <span>Start Tour</span>
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon">🕯️</div>
+                        <h4 class="text-xl font-bold mb-2">Light Virtual Diya</h4>
+                        <p class="text-gray-600 mb-4">Offer digital prayers and light</p>
+                        <button class="interactive-btn" onclick="lightDiya()">
+                            <span>🔥</span>
+                            <span>Light Diya</span>
+                        </button>
+                    </div>
+                    <div class="text-center">
+                        <div class="feature-icon">🌺</div>
+                        <h4 class="text-xl font-bold mb-2">Offer Flowers</h4>
+                        <p class="text-gray-600 mb-4">Virtual flower offering to deity</p>
+                        <button class="interactive-btn" onclick="offerFlowers()">
+                            <span>🌸</span>
+                            <span>Offer Flowers</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Divya Darshan</h3>
+                    <p>Smart pilgrimage management for a divine experience</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Spiritual Services</h4>
+                    <a href="pilgrim-engagement.html">Digital Devotion</a>
+                    <a href="virtual-queue.html">Virtual Queue</a>
+                    <a href="live-crowd-map.html">Live Darshan</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="accessibility.html">Accessibility</a>
+                    <a href="tel:1077">Emergency: 1077</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Government of Gujarat. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        let malaCount = 0;
+        
+        function incrementMala() {
+            malaCount++;
+            document.getElementById('mala-count').textContent = malaCount;
+            
+            // Add visual feedback
+            const counter = document.getElementById('mala-count');
+            counter.style.transform = 'scale(1.2)';
+            counter.style.color = '#ec4899';
+            setTimeout(() => {
+                counter.style.transform = 'scale(1)';
+                counter.style.color = '#ec4899';
+            }, 200);
+        }
+        
+        function playDevotionalMusic() {
+            alert('🎵 Playing devotional bhajans... (In a real app, this would start audio playback)');
+        }
+        
+        function setReminder() {
+            if ('Notification' in window) {
+                Notification.requestPermission().then(permission => {
+                    if (permission === 'granted') {
+                        new Notification('Aarti Reminder Set!', {
+                            body: 'You will be notified 10 minutes before the evening aarti.',
+                            icon: '/placeholder.svg?height=64&width=64'
+                        });
+                    }
+                });
+            }
+        }
+        
+        function donate() {
+            alert('🙏 Redirecting to secure donation portal... (In a real app, this would open payment gateway)');
+        }
+        
+        function startVirtualTour() {
+            alert('🏛️ Starting 360° virtual temple tour... (In a real app, this would launch VR/360° viewer)');
+        }
+        
+        function lightDiya() {
+            alert('🕯️ Your virtual diya has been lit! May your prayers be answered.');
+        }
+        
+        function offerFlowers() {
+            alert('🌺 Your virtual flowers have been offered to the deity. Blessings to you!');
+        }
+        
+        // Update aarti timer
+        function updateAartiTimer() {
+            const now = new Date();
+            const aartiTime = new Date();
+            aartiTime.setHours(18, 30, 0, 0); // 6:30 PM
+            
+            if (now > aartiTime) {
+                aartiTime.setDate(aartiTime.getDate() + 1);
+            }
+            
+            const diff = aartiTime - now;
+            const hours = Math.floor(diff / (1000 * 60 * 60));
+            const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+            
+            document.getElementById('aarti-timer').textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        }
+        
+        setInterval(updateAartiTimer, 1000);
+        updateAartiTimer();
+    </script>
+</body>
+</html>

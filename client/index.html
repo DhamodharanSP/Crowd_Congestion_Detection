@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Divya Darshan Smart Management System | Government of Gujarat</title>
+    <link href="app/globals.css" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="bg-background text-foreground">
+    <!-- Navigation Header -->
+    <nav class="bg-white shadow-lg border-b border-border sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <!-- Logo Section -->
+                <div class="flex items-center space-x-4">
+                    <img src="data:image/webp;base64,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" alt="Gujarat Govt" class="h-10 w-10">
+                    <div>
+                        <h1 class="text-lg font-bold text-primary">Divya Darshan</h1>
+                        <p class="text-xs text-muted-foreground">Smart Management System</p>
+                    </div>
+                </div>
+                
+                <!-- Navigation Links -->
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-foreground hover:text-primary font-medium transition-colors">Home</a>
+                    <!-- <a href="#about" class="text-foreground hover:text-primary font-medium transition-colors">About</a> -->
+                    <a href="#live-crowd" class="text-foreground hover:text-primary font-medium transition-colors">Live Crowd</a>
+                    <a href="virtual-queue.html" class="text-foreground hover:text-primary font-medium transition-colors">Virtual Queue</a>
+                    <!-- <a href="#contact" class="text-foreground hover:text-primary font-medium transition-colors">Contact</a> -->
+                </div>
+
+                <!-- Language Selector -->
+                <div class="flex items-center space-x-4">
+                    <select class="bg-input border border-border rounded-md px-3 py-1 text-sm">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी</option>
+                        <option value="gu">ગુજરાતી</option>
+                    </select>
+                    <button class="md:hidden p-2">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative bg-gradient-to-br from-rose-50 to-pink-50 py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-2 gap-12 items-center">
+                <!-- Hero Content -->
+                <div class="space-y-8">
+                    <div class="space-y-4">
+                        <h1 class="text-4xl lg:text-6xl font-bold text-balance">
+                            <span class="text-primary">Divine</span> Pilgrimage
+                            <br>Made <span class="text-secondary">Simple</span>
+                        </h1>
+                        <p class="text-xl text-muted-foreground text-pretty leading-relaxed">
+                            Experience seamless darshan with real-time crowd monitoring, virtual queues, and smart temple management across Gujarat's sacred sites.
+                        </p>
+                    </div>
+
+                    <!-- Quick Action Buttons -->
+                    <div class="flex flex-col sm:flex-row gap-4">
+                        <button class="bg-primary text-primary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-primary/90 transition-colors shadow-lg">
+                            <a href="virtual-queue.html">Book Darshan Pass</a>
+                        </button>
+                        <button class="bg-secondary text-secondary-foreground px-8 py-4 rounded-lg font-semibold text-lg hover:bg-secondary/90 transition-colors shadow-lg">
+                            <a href="live-crowd-map.html">View Live Crowd Map</a>
+                        </button>
+                    </div>
+
+                    <!-- Live Status Indicator -->
+                    <div class="flex items-center space-x-3 bg-white p-4 rounded-lg shadow-md">
+                        <div class="w-3 h-3 bg-green-500 rounded-full pulse-animation"></div>
+                        <span class="font-medium">System Status: </span>
+                        <span class="text-green-600 font-semibold">All Services Online</span>
+                    </div>
+                </div>
+
+                <!-- Hero Image -->
+                <div class="relative">
+                    <img src="/placeholder.svg?height=500&width=600" alt="Gujarat Temple" class="rounded-2xl shadow-2xl">
+                    <div class="absolute -bottom-6 -left-6 bg-white p-4 rounded-lg shadow-lg">
+                        <div class="flex items-center space-x-3">
+                            <div class="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center">
+                                <svg class="w-6 h-6 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"></path>
+                                </svg>
+                            </div>
+                            <div>
+                                <p class="font-semibold">12,450</p>
+                                <p class="text-sm text-muted-foreground">Active Devotees</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Crowd Status Section -->
+    <section id="live-crowd" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-balance mb-4">Real-Time Temple Status</h2>
+                <p class="text-xl text-muted-foreground text-pretty">Monitor crowd levels across Gujarat's major pilgrimage sites</p>
+            </div>
+
+            <!-- Temple Status Grid -->
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                <!-- Somnath Temple -->
+                <div class="temple-card bg-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg">Somnath Temple</h3>
+                        <div class="crowd-status-green px-3 py-1 rounded-full text-sm font-medium">
+                            Smooth
+                        </div>
+                    </div>
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.U1C8mt-8MGMb9pVeRxP92wHaFL?rs=1&pid=ImgDetMain&o=7&rm=3" alt="Somnath Temple" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Current Wait:</span>
+                            <span class="font-semibold text-green-600">5-10 mins</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Capacity:</span>
+                            <span class="font-semibold">45% Full</span>
+                        </div>
+                        <div class="w-full bg-muted rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 45%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dwarka Temple -->
+                <div class="temple-card bg-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg">Dwarka Temple</h3>
+                        <div class="crowd-status-yellow px-3 py-1 rounded-full text-sm font-medium">
+                            Moderate
+                        </div>
+                    </div>
+                    <img src="data:image/webp;base64,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" alt="Dwarka Temple" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Current Wait:</span>
+                            <span class="font-semibold text-yellow-600">15-25 mins</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Capacity:</span>
+                            <span class="font-semibold">70% Full</span>
+                        </div>
+                        <div class="w-full bg-muted rounded-full h-2">
+                            <div class="bg-yellow-500 h-2 rounded-full" style="width: 70%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Ambaji Temple -->
+                <div class="temple-card bg-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg">Ambaji Temple</h3>
+                        <div class="crowd-status-red px-3 py-1 rounded-full text-sm font-medium">
+                            Crowded
+                        </div>
+                    </div>
+                    <img src="https://tfipost.com/wp-content/uploads/2023/02/Ambaji-Temple-Thumbnail-campus.jpg" alt="Ambaji Temple" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Current Wait:</span>
+                            <span class="font-semibold text-red-600">45-60 mins</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Capacity:</span>
+                            <span class="font-semibold">95% Full</span>
+                        </div>
+                        <div class="w-full bg-muted rounded-full h-2">
+                            <div class="bg-red-500 h-2 rounded-full" style="width: 95%"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Pavagadh Temple -->
+                <div class="temple-card bg-card p-6 rounded-xl">
+                    <div class="flex items-center justify-between mb-4">
+                        <h3 class="font-bold text-lg">Pavagadh Temple</h3>
+                        <div class="crowd-status-green px-3 py-1 rounded-full text-sm font-medium">
+                            Smooth
+                        </div>
+                    </div>
+                    <img src="https://th.bing.com/th/id/OIP.mcjUu_YAYr3gxbs_kew2KwHaGU?w=210&h=180&c=7&r=0&o=7&dpr=1.3&pid=1.7&rm=3" alt="Pavagadh Temple" class="w-full h-32 object-cover rounded-lg mb-4">
+                    <div class="space-y-2">
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Current Wait:</span>
+                            <span class="font-semibold text-green-600">8-12 mins</span>
+                        </div>
+                        <div class="flex justify-between">
+                            <span class="text-muted-foreground">Capacity:</span>
+                            <span class="font-semibold">35% Full</span>
+                        </div>
+                        <div class="w-full bg-muted rounded-full h-2">
+                            <div class="bg-green-500 h-2 rounded-full" style="width: 35%"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Services Section -->
+    <section class="py-16 bg-muted/30">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl lg:text-4xl font-bold text-balance mb-4">Smart Temple Services</h2>
+                <p class="text-xl text-muted-foreground text-pretty">Everything you need for a seamless pilgrimage experience</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Virtual Queue -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Virtual Queue System</h3>
+                    <p class="text-muted-foreground mb-6">Book your darshan slot in advance and skip the physical queues. Get real-time updates on your mobile.</p>
+                    <button class="w-full bg-primary text-primary-foreground py-3 rounded-lg font-semibold hover:bg-primary/90 transition-colors">
+                        Book Now
+                    </button>
+                </div>
+
+                <!-- Live Crowd Map -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-secondary/10 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-secondary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-1.447-.894L15 4m0 13V4m-6 3l6-3"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Interactive Crowd Map</h3>
+                    <p class="text-muted-foreground mb-6">View real-time crowd density across temple premises. Find the best routes and facilities.</p>
+                    <button class="w-full bg-secondary text-secondary-foreground py-3 rounded-lg font-semibold hover:bg-secondary/90 transition-colors">
+                        View Map
+                    </button>
+                </div>
+
+                <!-- Emergency Services -->
+                <div class="bg-white p-8 rounded-xl shadow-lg hover:shadow-xl transition-shadow">
+                    <div class="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mb-6">
+                        <svg class="w-8 h-8 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L4.082 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Emergency Assistance</h3>
+                    <p class="text-muted-foreground mb-6">24/7 emergency support with instant location-based assistance for medical and security needs.</p>
+                    <button class="w-full bg-red-600 text-white py-3 rounded-lg font-semibold hover:bg-red-700 transition-colors">
+                        SOS Help
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Information Ticker -->
+    <section class="bg-primary text-primary-foreground py-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center space-x-4">
+                <span class="font-semibold">Latest Updates:</span>
+                <div class="flex-1 overflow-hidden">
+                    <div class="animate-marquee whitespace-nowrap">
+                        <span class="mx-8">🕉️ Special Maha Aarti at Somnath Temple today at 7:00 PM</span>
+                        <span class="mx-8">📱 New mobile app launched for easier darshan booking</span>
+                        <span class="mx-8">🚗 Free parking available at Dwarka Temple complex</span>
+                        <span class="mx-8">⚡ All temples now equipped with digital payment systems</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8">
+                <!-- Logo & Description -->
+                <div class="space-y-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/placeholder.svg?height=40&width=40" alt="Gujarat Govt" class="h-10 w-10">
+                        <div>
+                            <h3 class="font-bold text-lg">Divya Darshan</h3>
+                            <p class="text-sm text-gray-400">Government of Gujarat</p>
+                        </div>
+                    </div>
+                    <p class="text-gray-400 text-sm">
+                        Enhancing pilgrimage experiences through smart technology and efficient crowd management.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div>
+                    <h4 class="font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Virtual Queue</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Live Crowd Status</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Temple Information</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Emergency Services</a></li>
+                    </ul>
+                </div>
+
+                <!-- Support -->
+                <div>
+                    <h4 class="font-semibold mb-4">Support</h4>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Help Center</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Privacy Policy</a></li>
+                        <li><a href="#" class="text-gray-400 hover:text-white transition-colors">Terms of Service</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact Info -->
+                <div>
+                    <h4 class="font-semibold mb-4">Emergency Helpline</h4>
+                    <div class="space-y-3">
+                        <div class="flex items-center space-x-3">
+                            <svg class="w-5 h-5 text-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                            </svg>
+                            <span class="text-lg font-bold text-primary">1800-123-4567</span>
+                        </div>
+                        <p class="text-gray-400 text-sm">24/7 Emergency Support</p>
+                        <div class="flex space-x-4 mt-4">
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+                                </svg>
+                            </a>
+                            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+                                <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                                    <path d="M22.46 6c-.77.35-1.6.58-2.46.69.88-.53 1.56-1.37 1.88-2.38-.83.5-1.75.85-2.72 1.05C18.37 4.5 17.26 4 16 4c-2.35 0-4.27 1.92-4.27 4.29 0 .34.04.67.11.98C8.28 9.09 5.11 7.38 3 4.79c-.37.63-.58 1.37-.58 2.15 0 1.49.75 2.81 1.91 3.56-.71 0-1.37-.2-1.95-.5v.03c0 2.08 1.48 3.82 3.44 4.21a4.22 4.22 0 0 1-1.93.07 4.28 4.28 0 0 0 4 2.98 8.521 8.521 0 0 1-5.33 1.84c-.34 0-.68-.02-1.02-.06C3.44 20.29 5.7 21 8.12 21 16 21 20.33 14.46 20.33 8.79c0-.19 0-.37-.01-.56.84-.6 1.56-1.36 2.14-2.23z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    © 2024 Government of Gujarat. All rights reserved. | Developed for the welfare of devotees.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <style>
+        @keyframes marquee {
+            0% { transform: translate3d(100%, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+        .animate-marquee {
+            animation: marquee 30s linear infinite;
+        }
+    </style>
+</body>
+</html>

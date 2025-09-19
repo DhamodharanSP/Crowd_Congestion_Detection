@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Accessibility Settings - Divya Darshan Smart Management</title>
+    <link rel="stylesheet" href="app/globals.css">
+    <style>
+        .accessibility-panel {
+            background: linear-gradient(135deg, #fdf2f8 0%, #fce7f3 100%);
+            border-radius: 20px;
+            padding: 2rem;
+            box-shadow: 0 20px 40px rgba(236, 72, 153, 0.1);
+        }
+        
+        .setting-card {
+            background: white;
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .setting-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .toggle-switch {
+            position: relative;
+            width: 60px;
+            height: 30px;
+            background: #e5e7eb;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .toggle-switch.active {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+        }
+        
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 24px;
+            height: 24px;
+            background: white;
+            border-radius: 50%;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(30px);
+        }
+        
+        .language-selector {
+            background: linear-gradient(135deg, #ec4899, #f472b6);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .language-selector:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(236, 72, 153, 0.3);
+        }
+        
+        .voice-control {
+            background: linear-gradient(135deg, #3b82f6, #1d4ed8);
+            color: white;
+            border: none;
+            padding: 16px 32px;
+            border-radius: 16px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .voice-control:hover {
+            transform: scale(1.05);
+            box-shadow: 0 12px 30px rgba(59, 130, 246, 0.4);
+        }
+        
+        .high-contrast {
+            filter: contrast(150%) brightness(1.2);
+        }
+        
+        .large-text {
+            font-size: 1.25em !important;
+        }
+        
+        .reduced-motion * {
+            animation-duration: 0.01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: 0.01ms !important;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-brand">
+                <span class="nav-icon">🕉️</span>
+                <span class="nav-title">Divya Darshan</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="virtual-queue.html" class="nav-link">Queue</a>
+                <a href="live-crowd-map.html" class="nav-link">Live Map</a>
+                <a href="accessibility.html" class="nav-link active">Accessibility</a>
+            </div>
+        </div>
+    </nav>
+
+    <main class="main-content">
+        <div class="container">
+            <div class="hero-section">
+                <h1 class="hero-title">Accessibility & Language Settings</h1>
+                <p class="hero-subtitle">Customize your experience for better accessibility and language preferences</p>
+            </div>
+
+            <div class="accessibility-panel">
+                <div class="grid-layout">
+                    <div class="setting-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">High Contrast Mode</h3>
+                                <p class="text-gray-600">Increase contrast for better visibility</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleHighContrast(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Large Text</h3>
+                                <p class="text-gray-600">Increase text size for better readability</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleLargeText(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Reduce Motion</h3>
+                                <p class="text-gray-600">Minimize animations and transitions</p>
+                            </div>
+                            <div class="toggle-switch" onclick="toggleReducedMotion(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="setting-card">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <h3 class="text-xl font-bold text-gray-800">Screen Reader Support</h3>
+                                <p class="text-gray-600">Enhanced support for screen readers</p>
+                            </div>
+                            <div class="toggle-switch active" onclick="toggleScreenReader(this)">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Language Selection</h2>
+                    <div class="flex flex-wrap gap-4">
+                        <button class="language-selector" onclick="setLanguage('en')">English</button>
+                        <button class="language-selector" onclick="setLanguage('hi')">हिंदी</button>
+                        <button class="language-selector" onclick="setLanguage('gu')">ગુજરાતી</button>
+                        <button class="language-selector" onclick="setLanguage('ta')">தமிழ்</button>
+                        <button class="language-selector" onclick="setLanguage('te')">తెలుగు</button>
+                        <button class="language-selector" onclick="setLanguage('kn')">ಕನ್ನಡ</button>
+                    </div>
+                </div>
+
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Voice Control</h2>
+                    <button class="voice-control" onclick="toggleVoiceControl()">
+                        <span>🎤</span>
+                        <span>Enable Voice Commands</span>
+                    </button>
+                    <p class="text-gray-600 mt-4">Say "Navigate to queue" or "Show crowd status" to use voice commands</p>
+                </div>
+
+                <div class="mt-8">
+                    <h2 class="text-2xl font-bold text-gray-800 mb-6">Emergency Accessibility</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <button class="emergency-btn bg-red-500 hover:bg-red-600 text-white p-4 rounded-lg font-bold">
+                            🚨 Emergency SOS
+                        </button>
+                        <button class="emergency-btn bg-blue-500 hover:bg-blue-600 text-white p-4 rounded-lg font-bold">
+                            📞 Audio Assistance
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>Divya Darshan</h3>
+                    <p>Smart pilgrimage management for a divine experience</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="virtual-queue.html">Virtual Queue</a>
+                    <a href="live-crowd-map.html">Live Map</a>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <a href="accessibility.html">Accessibility</a>
+                    <a href="tel:1077">Emergency: 1077</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Government of Gujarat. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleHighContrast(element) {
+            element.classList.toggle('active');
+            document.body.classList.toggle('high-contrast');
+            localStorage.setItem('highContrast', element.classList.contains('active'));
+        }
+
+        function toggleLargeText(element) {
+            element.classList.toggle('active');
+            document.body.classList.toggle('large-text');
+            localStorage.setItem('largeText', element.classList.contains('active'));
+        }
+
+        function toggleReducedMotion(element) {
+            element.classList.toggle('active');
+            document.body.classList.toggle('reduced-motion');
+            localStorage.setItem('reducedMotion', element.classList.contains('active'));
+        }
+
+        function toggleScreenReader(element) {
+            element.classList.toggle('active');
+            // Screen reader support is always enabled
+        }
+
+        function setLanguage(lang) {
+            localStorage.setItem('selectedLanguage', lang);
+            // In a real app, this would trigger translation
+            alert(`Language set to: ${lang}`);
+        }
+
+        function toggleVoiceControl() {
+            if ('webkitSpeechRecognition' in window) {
+                const recognition = new webkitSpeechRecognition();
+                recognition.continuous = true;
+                recognition.interimResults = true;
+                recognition.lang = 'en-US';
+                
+                recognition.onresult = function(event) {
+                    const command = event.results[event.results.length - 1][0].transcript.toLowerCase();
+                    
+                    if (command.includes('queue')) {
+                        window.location.href = 'virtual-queue.html';
+                    } else if (command.includes('crowd') || command.includes('map')) {
+                        window.location.href = 'live-crowd-map.html';
+                    } else if (command.includes('home')) {
+                        window.location.href = 'index.html';
+                    }
+                };
+                
+                recognition.start();
+                alert('Voice control activated! Try saying "Navigate to queue" or "Show crowd status"');
+            } else {
+                alert('Voice recognition not supported in this browser');
+            }
+        }
+
+        // Load saved preferences
+        window.addEventListener('load', function() {
+            if (localStorage.getItem('highContrast') === 'true') {
+                document.body.classList.add('high-contrast');
+                document.querySelector('.toggle-switch').classList.add('active');
+            }
+            if (localStorage.getItem('largeText') === 'true') {
+                document.body.classList.add('large-text');
+                document.querySelectorAll('.toggle-switch')[1].classList.add('active');
+            }
+            if (localStorage.getItem('reducedMotion') === 'true') {
+                document.body.classList.add('reduced-motion');
+                document.querySelectorAll('.toggle-switch')[2].classList.add('active');
+            }
+        });
+    </script>
+</body>
+</html>
