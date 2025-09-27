@@ -12,15 +12,7 @@ class PeopleDetector:
         self.model.to(self.device)
 
     def detect_people(self, frame, eps=100, min_samples=10, min_cluster_size=10):
-        """
-        Detect people and check for clusters.
-        Returns:
-            count (int): total people detected
-            boxes (list): bounding boxes
-            clusters (dict): cluster_id -> member indices
-            labels (ndarray): DBSCAN labels per detected person
-            congestion_detected (bool): True if cluster >= min_cluster_size
-        """
+        
         results = self.model(frame, device=self.device, verbose=False)
 
         boxes, centers = [], []
