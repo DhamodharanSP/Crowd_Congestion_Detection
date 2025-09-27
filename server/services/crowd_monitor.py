@@ -166,7 +166,7 @@ class CrowdMonitor:
                     cv2.imwrite(frame_path, frame)
 
                     # Upload to Cloudinary
-                    url = upload_frame(frame_path)
+                    url = upload_frame(frame_path, "Stampede")
                     
                     if url:
                         msg_text = f"⚠ Overcrowding Alert!\nDetected {count} people, with cluster size >= {self.threshold}."
